@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About - Employee Salary Prediction System</title>
+
+    <!-- External Dependencies -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <!-- =================================================================
+    ============== INTERNAL CSS STYLESHEET =============================
+    ================================================================== -->
+    <style>
+      :root {
+        --bg-color: #0d1117;
+        --text-color: #c9d1d9;
+        --text-secondary: #8b949e;
+        --bg-light: #161b22;
+        --border-color: #30363d;
+        --accent-color: #22d3ee;
+        --accent-hover: #52e1f5;
+        --shadow-color: rgba(0, 0, 0, 0.5);
+        --warning-border: #f85149;
+        --warning-bg: rgba(248, 81, 73, 0.1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Fira Code", monospace;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.7;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        line-height: 1.3;
+        font-weight: 500;
+      }
+      p {
+        color: var(--text-secondary);
+        margin-bottom: 1rem;
+      }
+      a {
+        text-decoration: none;
+        color: var(--accent-color);
+        transition: color 0.3s ease;
+      }
+      a:hover {
+        color: var(--accent-hover);
+      }
+      hr {
+        border: 0;
+        height: 1px;
+        background-color: var(--border-color);
+        margin: 60px 0;
+      }
+
+      .page-header {
+        text-align: center;
+        padding: 60px 0;
+      }
+      .page-title {
+        font-size: 2.8rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+      .page-subtitle {
+        font-size: 1.2rem;
+        color: var(--text-secondary);
+      }
+
+      .section {
+        margin-bottom: 60px;
+      }
+      .section-title {
+        font-size: 2rem;
+        margin-bottom: 25px;
+        color: var(--text-color);
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 10px;
+      }
+      .section-title i {
+        margin-right: 15px;
+        color: var(--accent-color);
+      }
+
+      .mission-box {
+        background-color: var(--bg-light);
+        padding: 25px;
+        border-radius: 10px;
+        border-left: 5px solid var(--accent-color);
+        margin-top: 20px;
+      }
+      .mission-box p {
+        font-size: 1.1rem;
+        color: var(--text-color);
+        margin-bottom: 0;
+      }
+
+      ul.styled-list {
+        list-style: none;
+        padding-left: 10px;
+      }
+      .styled-list li {
+        position: relative;
+        padding-left: 25px;
+        margin-bottom: 10px;
+        color: var(--text-secondary);
+      }
+      .styled-list li::before {
+        content: "//";
+        position: absolute;
+        left: 0;
+        color: var(--accent-color);
+        font-weight: 600;
+      }
+      .styled-list li strong {
+        color: var(--text-color);
+      }
+
+      /* Developer Section */
+      .developer-grid {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: 40px;
+        align-items: flex-start;
+        background-color: var(--bg-light);
+        padding: 30px;
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+      }
+      .developer-avatar img {
+        width: 100%;
+        border-radius: 50%;
+        border: 3px solid var(--accent-color);
+        box-shadow: 0 0 20px var(--accent-cyan-glow);
+      }
+      .developer-info h3 {
+        font-size: 1.8rem;
+        color: var(--text-color);
+      }
+      .developer-info .role {
+        font-size: 1.1rem;
+        color: var(--accent-color);
+        font-weight: 500;
+        margin: 5px 0 15px;
+      }
+      .developer-info h4 {
+        font-size: 1.1rem;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        color: var(--text-color);
+      }
+      .connect-links a {
+        margin-right: 15px;
+      }
+
+      /* Disclaimer Box */
+      .disclaimer-box {
+        background-color: var(--warning-bg);
+        border: 1px solid var(--warning-border);
+        border-left-width: 5px;
+        border-radius: 8px;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+      }
+      .disclaimer-box i {
+        font-size: 1.5rem;
+        color: var(--warning-border);
+        margin-right: 15px;
+      }
+      .disclaimer-box p {
+        color: var(--text-color);
+        margin-bottom: 0;
+      }
+
+      /* JS Scroll Animation */
+      .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+      .animate-on-scroll.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .developer-grid {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .developer-avatar {
+          margin: 0 auto 20px;
+          max-width: 180px;
+        }
+        .page-title {
+          font-size: 2.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <!-- Page Header -->
+      <header class="page-header animate-on-scroll">
+        <h1 class="page-title">ℹ️ About the Salary Predictor</h1>
+        <p class="page-subtitle">
+          An overview of the project's mission, technology, and developer.
+        </p>
+      </header>
+
+      <!-- Project Mission -->
+      <section class="section animate-on-scroll">
+        <h2 class="section-title">
+          <i class="fas fa-bullseye"></i>Project Mission
+        </h2>
+        <div class="mission-box">
+          <p>
+            The goal of the
+            <strong>Employee Salary Prediction System</strong> is to harness the
+            power of machine learning to provide transparent, data-driven salary
+            insights. We aim to empower HR professionals, job seekers, and data
+            analysts with a reliable tool to understand compensation trends in
+            the Indian job market, fostering fairer and more informed salary
+            negotiations.
+          </p>
+        </div>
+      </section>
+
+      <!-- System Architecture -->
+      <section class="section animate-on-scroll">
+        <h2 class="section-title">
+          <i class="fas fa-sitemap"></i>System Architecture
+        </h2>
+        <ul class="styled-list">
+          <li>
+            <strong>Frontend:</strong> Built with Flask & Jinja2 for a
+            server-rendered UI.
+          </li>
+          <li>
+            <strong>Backend Model:</strong> Trained using scikit-learn (Random
+            Forest, XGBoost).
+          </li>
+          <li>
+            <strong>PDF Generation:</strong> Handled on the backend with `fpdf2`
+            for robust reports.
+          </li>
+          <li>
+            <strong>Hosting:</strong> Deployed on cloud platforms like Render or
+            PythonAnywhere.
+          </li>
+          <li>
+            <strong>User Interaction Flow:</strong>
+            <ol style="margin-top: 10px; padding-left: 20px">
+              <li>User enters employee data into the web form.</li>
+              <li>Flask backend processes and validates input.</li>
+              <li>ML model predicts salary based on pre-trained artifacts.</li>
+              <li>Result is displayed on the page.</li>
+              <li>User can download a personalized PDF report.</li>
+            </ol>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Machine Learning Pipeline -->
+      <section class="section animate-on-scroll">
+        <h2 class="section-title">
+          <i class="fas fa-cogs"></i>Machine Learning Pipeline
+        </h2>
+        <ul class="styled-list">
+          <li>
+            <strong>Data Cleaning:</strong> Handle missing values, remove
+            outliers using IQR method.
+          </li>
+          <li>
+            <strong>Feature Engineering:</strong> One-hot encode categorical
+            features, scale numeric data.
+          </li>
+          <li>
+            <strong>Feature Selection:</strong> Analyze correlation matrix and
+            model-based importance.
+          </li>
+          <li>
+            <strong>Model Training:</strong> Experiment with Linear Regression,
+            Random Forest, and XGBoost.
+          </li>
+          <li>
+            <strong>Evaluation:</strong> Validate model using R², Root Mean
+            Squared Error (RMSE), and MAE.
+          </li>
+          <li>
+            <strong>Interpretability (Planned):</strong> Integrate SHAP values
+            for prediction explanations.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Future Enhancements -->
+      <section class="section animate-on-scroll">
+        <h2 class="section-title">
+          <i class="fas fa-rocket"></i>Future Enhancements
+        </h2>
+        <ul class="styled-list">
+          <li>
+            <strong>API for Business Integration:</strong> A REST API for
+            businesses to integrate predictions.
+          </li>
+          <li>
+            <strong>Resume Parsing:</strong> Use NLP to automatically extract
+            features from uploaded resumes.
+          </li>
+          <li>
+            <strong>Time-Series Forecasting:</strong> Model salary growth trends
+            over time.
+          </li>
+          <li>
+            <strong>Deeper Analytics:</strong> Interactive dashboards for market
+            insights.
+          </li>
+        </ul>
+      </section>
+
+      <hr />
+
+      <!-- Meet the Developer -->
+      <section class="section animate-on-scroll">
+        <h2 class="section-title">
+          <i class="fas fa-user-circle"></i>Meet the Developer
+        </h2>
+        <div class="developer-grid">
+          <div class="developer-avatar">
+            <img
+              src="https://avatars.githubusercontent.com/u/9919?s=200&v=4"
+              alt="Durga Prasad Papugani's Profile Picture"
+            />
+          </div>
+          <div class="developer-info">
+            <h3>Durga Prasad Papugani</h3>
+            <p class="role">
+              AI/ML Developer | Intern at IBM SkillsBuild & SmartBridge
+            </p>
+            <p>
+              I am a passionate and results-driven AI/ML developer focused on
+              solving real-world problems through machine learning and data
+              science. This project reflects my commitment to learning,
+              applying, and delivering solutions in the AI domain.
+            </p>
+            <h4>Certifications & Internships:</h4>
+            <ul class="styled-list">
+              <li>IBM SkillsBuild – AI/ML Internship</li>
+              <li>SmartBridge – Applied AI Internship</li>
+              <li>
+                NPTEL: German-I, Effective Writing, Innovation & Design Thinking
+              </li>
+            </ul>
+            <div class="connect-links">
+              <h4>Connect with me:</h4>
+              <a href="mailto:papugandurgaprasad@email.com" title="Email"
+                ><i class="fas fa-envelope"></i> Email</a
+              >
+              <a
+                href="https://www.linkedin.com/in/durgaprasadpapugani/"
+                target="_blank"
+                title="LinkedIn"
+                ><i class="fab fa-linkedin"></i> LinkedIn</a
+              >
+              <a
+                href="https://github.com/DURGA-PRASAD-PAPUGANI"
+                target="_blank"
+                title="GitHub"
+                ><i class="fab fa-github"></i> GitHub</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <hr />
+
+      <!-- Disclaimer -->
+      <section class="section animate-on-scroll">
+        <h2 class="section-title">
+          <i class="fas fa-balance-scale"></i>Disclaimer
+        </h2>
+        <div class="disclaimer-box">
+          <i class="fas fa-exclamation-triangle"></i>
+          <p>
+            <strong>For Informational Purposes Only:</strong> This salary
+            predictor is an educational project. While it offers valuable
+            insights, the predictions are estimates and should not be considered
+            financial advice.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const scrollElements = document.querySelectorAll(".animate-on-scroll");
+        const elementInView = (el, dividend = 1) => {
+          const elementTop = el.getBoundingClientRect().top;
+          return (
+            elementTop <=
+            (window.innerHeight || document.documentElement.clientHeight) /
+              dividend
+          );
+        };
+        const displayScrollElement = (element) => {
+          element.classList.add("is-visible");
+        };
+        const handleScrollAnimation = () => {
+          scrollElements.forEach((el) => {
+            if (elementInView(el, 1.25)) {
+              displayScrollElement(el);
+            }
+          });
+        };
+        handleScrollAnimation();
+        window.addEventListener("scroll", handleScrollAnimation);
+      });
+    </script>
+  </body>
+</html>

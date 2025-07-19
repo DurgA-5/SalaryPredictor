@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SalaryPredict AI - A Deep-Dive ML Project</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <style>
+      /* --- THEME: Bio-Mechanical & Immersive --- */
+      :root {
+        --bg-color: #0a192f; /* Deep Navy */
+        --card-bg: #112240; /* Lighter Navy */
+        --border-color: rgba(76, 201, 240, 0.2);
+        --text-color: #ccd6f6; /* Light Lavender-White */
+        --text-secondary: #8892b0;
+        --accent-primary: #4cc9f0; /* Vibrant Cyan */
+        --accent-secondary: #fca311; /* Striking Amber/Gold */
+        --font-main: "Inter", sans-serif;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: var(--font-main);
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.7;
+      }
+      #plexus-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-weight: 600;
+        line-height: 1.3;
+      }
+      p {
+        color: var(--text-secondary);
+        margin-bottom: 15px;
+      }
+      a {
+        text-decoration: none;
+        color: var(--accent-primary);
+        font-weight: 600;
+      }
+      .section {
+        padding: 100px 0;
+        position: relative;
+      }
+      .section-title {
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 20px;
+        color: #fff;
+      }
+      .section-subtitle {
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto 60px auto;
+        font-size: 1.1rem;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 28px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 1px solid var(--accent-secondary);
+      }
+      .btn-accent {
+        background-color: var(--accent-secondary);
+        color: var(--bg-color);
+      }
+      .btn-accent:hover {
+        background-color: #ffb703;
+        border-color: #ffb703;
+        transform: translateY(-3px);
+      }
+
+      .header {
+        background-color: rgba(10, 25, 47, 0.85);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 15px 0;
+        border-bottom: 1px solid var(--border-color);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .nav-logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #fff;
+        z-index: 1001; /* To stay above mobile menu background */
+      }
+      .nav-logo span {
+        color: var(--accent-primary);
+      }
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 25px;
+      }
+      .nav-links a {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        font-weight: 500;
+      }
+      .nav-links a:hover {
+        color: var(--accent-primary);
+      }
+      /* Hamburger Menu - Hidden on Desktop */
+      .nav-toggle {
+        display: none;
+        cursor: pointer;
+        background: transparent;
+        border: 0;
+        padding: 0.5em;
+        z-index: 1001;
+      }
+      .hamburger {
+        display: block;
+        position: relative;
+        width: 25px;
+        height: 2px;
+        background: var(--text-color);
+        transition: transform 0.3s ease;
+      }
+      .hamburger::before,
+      .hamburger::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background: var(--text-color);
+        left: 0;
+        transition: transform 0.3s ease, top 0.3s ease;
+      }
+      .hamburger::before {
+        top: -8px;
+      }
+      .hamburger::after {
+        top: 8px;
+      }
+
+      .hero {
+        display: flex;
+        align-items: center;
+        min-height: 90vh;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 50px;
+      }
+      .hero-title {
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        color: #fff;
+      }
+
+      .hero-image-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        padding: 1rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        transform: perspective(1000px) rotateY(-15deg) rotateX(5deg);
+        transition: transform 0.5s ease;
+      }
+      .hero-image-card:hover {
+        transform: perspective(1000px) rotateY(0) rotateX(0);
+      }
+      .hero-image-card img {
+        max-width: 100%;
+        border-radius: 8px;
+        display: block;
+      }
+
+      .card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 30px;
+        height: 100%;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 25px rgba(76, 201, 240, 0.2);
+        border-color: var(--accent-primary);
+      }
+      .card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+        color: #fff;
+      }
+      .card .icon {
+        font-size: 1.8rem;
+        color: var(--accent-primary);
+        margin-bottom: 15px;
+      }
+
+      .grid-2,
+      .grid-3 {
+        display: grid;
+        gap: 30px;
+      }
+      .grid-2 {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
+      .grid-3 {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
+
+      .footer {
+        text-align: center;
+        padding: 60px 20px;
+        background-color: var(--card-bg);
+        border-top: 1px solid var(--border-color);
+      }
+      .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+      .animate-on-scroll.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      /* --- Cookie Consent Banner Styles --- */
+      #cookie-consent-banner {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          background-color: rgba(10, 25, 47, 0.85);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          border-top: 1px solid var(--border-color);
+          z-index: 2000;
+          padding: 20px 0;
+          transform: translateY(100%);
+          transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      #cookie-consent-banner.visible {
+          transform: translateY(0);
+      }
+      .cookie-content {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 20px;
+      }
+      .cookie-content p {
+          margin: 0;
+          font-size: 0.9rem;
+      }
+
+      /* --- RESPONSIVE STYLES --- */
+      @media (max-width: 992px) {
+        .hero {
+          min-height: auto;
+          padding-top: 80px;
+        }
+        .hero-grid {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .hero-grid > div:first-child {
+          order: 2;
+          margin-top: 40px;
+          text-align: center;
+        }
+        .hero-grid > div:last-child {
+          order: 1;
+        }
+        .hero-image-card {
+          transform: perspective(1000px) rotateY(0) rotateX(0);
+        }
+        .hero-title {
+          font-size: 2.8rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        /* General Adjustments */
+        .section {
+          padding: 80px 0;
+        }
+        .section-title {
+          font-size: 2.2rem;
+        }
+        .section-subtitle {
+          font-size: 1rem;
+          margin-bottom: 40px;
+        }
+
+        /* Mobile Navigation */
+        .nav-toggle {
+          display: block;
+        }
+        .nav-toggle.is-active .hamburger {
+          transform: rotate(45deg);
+        }
+        .nav-toggle.is-active .hamburger::before {
+          top: 0;
+          transform: rotate(90deg);
+        }
+        .nav-toggle.is-active .hamburger::after {
+          display: none;
+        }
+
+        .nav-links {
+          position: fixed; top: 0; left: 0;
+          width: 100%; height: 100vh;
+          background-color: rgba(10, 25, 47, 0.95);
+          backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+          flex-direction: column; justify-content: center; align-items: center;
+          gap: 40px;
+          transform: translateY(-100%);
+          transition: transform 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+        }
+        .nav-links.nav-open {
+          transform: translateY(0);
+        }
+        .nav-links a {
+          font-size: 1.2rem;
+        }
+
+        /* Hero Section */
+        .hero-title {
+          font-size: 2.5rem;
+        }
+        .metric-card div {
+          font-size: 3rem !important;
+        }
+        #about img {
+          width: 120px;
+          height: 120px;
+        }
+        
+        /* Responsive Cookie Banner */
+        .cookie-content {
+            flex-direction: column;
+            text-align: center;
+            gap: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Animated Plexus Background -->
+    <canvas id="plexus-bg"></canvas>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <nav class="navbar">
+          <a href="#" class="nav-logo"><span>S</span>alaryPredict AI</a>
+          <ul class="nav-links">
+            <li><a href="#problem">The Problem</a></li>
+            <li><a href="#pipeline">Pipeline</a></li>
+            <li><a href="#results">Results</a></li>
+            <li><a href="#ethics">Ethics</a></li>
+            <li><a href="#roadmap">Roadmap</a></li>
+          </ul>
+          <!-- Hamburger Menu Button -->
+          <button class="nav-toggle" aria-label="toggle navigation">
+            <span class="hamburger"></span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero Section -->
+      <section id="predictor" class="hero">
+        <div class="container">
+          <div class="hero-grid">
+            <div class="hero-content">
+              <h1 class="hero-title animate-on-scroll">
+                Machine Learning Project Employee Salary Prediction
+              </h1>
+              <p
+                class="animate-on-scroll"
+                style="transition-delay: 0.1s; font-size: 1.1rem"
+              >
+                A deployed web application that leverages a Machine Learning
+                model to predict salaries in the Indian job market, built to
+                demystify compensation and empower professionals.
+              </p>
+              <div
+                class="animate-on-scroll"
+                style="transition-delay: 0.2s; margin-top: 30px"
+              >
+                <a href="{{ url_for('predict_form') }}" class="btn btn-accent"
+                  >Launch Live App</a
+                >
+              </div>
+            </div>
+            <div
+              class="hero-image-card animate-on-scroll"
+              style="transition-delay: 0.2s"
+            >
+              <img
+                src="static/images/a.png"
+                alt="A mockup of the final PDF salary report generated by the application."
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- The Problem Statement Section -->
+      <section id="problem" class="section">
+        <div class="container">
+          <h2 class="section-title">The Problem Statement</h2>
+          <p class="section-subtitle">
+            The core challenge is "information asymmetry" in salary
+            negotiations, where employers hold significantly more data than
+            employees, leading to potential inequity.
+          </p>
+          <div class="grid-3">
+            <div class="card animate-on-scroll">
+              <div class="icon"><i class="fas fa-balance-scale-left"></i></div>
+              <h3>Data Imbalance</h3>
+              <p>
+                Companies possess internal and market-wide salary benchmarks,
+                while individuals rely on unreliable, anecdotal data.
+              </p>
+            </div>
+            <div class="card animate-on-scroll" style="transition-delay: 0.1s">
+              <div class="icon"><i class="fas fa-eye-slash"></i></div>
+              <h3>Opaque Market</h3>
+              <p>
+                Factors driving salary (e.g., specific skills, location impact)
+                are often unclear, making it hard for individuals to value their
+                unique profile.
+              </p>
+            </div>
+            <div class="card animate-on-scroll" style="transition-delay: 0.2s">
+              <div class="icon"><i class="fas fa-hand-holding-usd"></i></div>
+              <h3>Inefficient Negotiation</h3>
+              <p>
+                This lack of clarity leads to negotiation anxiety, potentially
+                causing individuals to accept sub-optimal offers.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Data Preprocessing Pipeline Section -->
+      <section id="pipeline" class="section">
+        <div class="container">
+          <h2 class="section-title">Data Preprocessing Pipeline</h2>
+          <p class="section-subtitle">
+            Raw data is unusable for machine learning. A rigorous cleaning and
+            transformation pipeline was essential for model accuracy.
+          </p>
+          <div class="grid-3">
+            <div class="card animate-on-scroll">
+              <div class="icon"><i class="fas fa-trash-alt"></i></div>
+              <h3>Handling Missing Values</h3>
+              <p>
+                Rows with critical missing data (like salary or experience) were
+                dropped. For less critical features, statistical methods (like
+                mode imputation) were used.
+              </p>
+            </div>
+            <div class="card animate-on-scroll" style="transition-delay: 0.1s">
+              <div class="icon"><i class="fas fa-cogs"></i></div>
+              <h3>Feature Engineering</h3>
+              <p>
+                Categorical features like 'Job Title' and 'Location' were
+                analyzed and then converted into a numerical format (One-Hot
+                Encoding) that the model can understand.
+              </p>
+            </div>
+            <div class="card animate-on-scroll" style="transition-delay: 0.2s">
+              <div class="icon"><i class="fas fa-compress-arrows-alt"></i></div>
+              <h3>Scaling Numerical Data</h3>
+              <p>
+                Numerical features like 'Years of Experience' were scaled to a
+                common range to prevent any single feature from
+                disproportionately influencing the model's learning process.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Performance & Results Section -->
+      <section id="results" class="section">
+        <div class="container">
+          <h2 class="section-title">Performance & Results</h2>
+          <p class="section-subtitle">
+            The final model demonstrated excellent performance on the held-out
+            test dataset, validating its predictive power.
+          </p>
+          <div class="grid-2">
+            <div style="display: flex; flex-direction: column; gap: 30px">
+              <div class="card metric-card animate-on-scroll" style="text-align: center">
+                <div style="font-size: 3.5rem; font-weight: 700; color: var(--accent-primary); line-height: 1;">0.92</div>
+                <h3>R² Score (Model Accuracy)</h3>
+                <p>This score indicates that our model successfully explains 92% of the variance in salaries, a sign of a very strong and reliable predictive model.</p>
+              </div>
+              <div class="card metric-card animate-on-scroll" style="transition-delay: 0.1s; text-align: center">
+                <div style="font-size: 3.5rem; font-weight: 700; color: var(--accent-primary); line-height: 1;">~₹45k</div>
+                <h3>Mean Absolute Error</h3>
+                <p>On average, the model's prediction is within approximately ₹45,000 of the actual annual salary, a small and acceptable margin of error.</p>
+              </div>
+            </div>
+            <div class="card animate-on-scroll" style="transition-delay: 0.2s">
+              <h3>Feature Importance</h3>
+              <p>This chart from the model shows which factors had the biggest influence on its salary predictions.</p>
+              <div style="margin-top: 30px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+                <p><strong>Experience:</strong> 45%</p>
+                <p><strong>Job Title:</strong> 30%</p>
+                <p><strong>Location:</strong> 15%</p>
+                <p><strong>Other Factors:</strong> 10%</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Use Cases Section -->
+      <section id="use-cases" class="section">
+        <div class="container">
+          <h2 class="section-title">Real-World Use Cases</h2>
+          <p class="section-subtitle">This tool is designed for practical application in various professional scenarios.</p>
+          <div class="grid-2">
+            <div class="card animate-on-scroll">
+              <h3>Scenario 1: The Job Applicant</h3>
+              <p>Anjali, a developer with 5 years of experience, receives an offer. Before accepting, she uses the tool to check the market rate for her profile in her city. The prediction is 15% higher than her offer, giving her the data-backed confidence to negotiate a better package.</p>
+            </div>
+            <div class="card animate-on-scroll" style="transition-delay: 0.1s">
+              <h3>Scenario 2: The Hiring Manager</h3>
+              <p>Rohan needs to hire a new marketing manager. Before setting the salary budget, he uses the "What-If" feature to test different experience levels. This helps him set a competitive budget that will attract qualified candidates without overspending.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ethical Considerations & Limitations -->
+      <section id="ethics" class="section">
+        <div class="container">
+          <h2 class="section-title">Ethical Considerations & Limitations</h2>
+          <p class="section-subtitle">Responsible AI requires transparency. We openly acknowledge the ethical framework and limitations of this project.</p>
+          <div class="grid-3">
+            <div class="card animate-on-scroll">
+              <div class="icon"><i class="fas fa-user-secret"></i></div>
+              <h3>Data Privacy</h3>
+              <p>User privacy is paramount. No input data is stored, logged, or used for any purpose beyond generating an instantaneous prediction. The system is stateless.</p>
+            </div>
+            <div class="card animate-on-scroll" style="transition-delay: 0.1s">
+              <div class="icon"><i class="fas fa-balance-scale"></i></div>
+              <h3>Algorithmic Bias</h3>
+              <p>The model reflects the biases present in the training data. While we work to clean the data, it may still under-predict for underrepresented groups. This is an area of ongoing research.</p>
+            </div>
+            <div class="card animate-on-scroll" style="transition-delay: 0.2s">
+              <div class="icon"><i class="fas fa-ruler-combined"></i></div>
+              <h3>Scope of Prediction</h3>
+              <p>The model is most accurate for common tech and corporate roles in India. It is not designed for highly niche professions, freelance work, or executive-level compensation.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- **** RESTORED SECTION **** -->
+      <!-- Future Roadmap -->
+      <section id="roadmap" class="section">
+        <div class="container" style="max-width: 800px">
+          <h2 class="section-title">Future Roadmap</h2>
+          <p class="section-subtitle">This project is an evolving platform. Here are the key features we are actively developing or planning for the future.</p>
+          <div class="card animate-on-scroll">
+            <p><strong>In Progress</strong> - SmartAI Resume Builder</p>
+            <p><strong>Planned</strong> - Public REST API for third-party integrations.</p>
+            <p><strong>Researching</strong> - Expansion to international markets data set (US, UK, Canada).</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- **** RESTORED SECTION **** -->
+      <!-- About the Developer Section -->
+      <section id="about" class="section">
+        <div class="container" style="text-align: center">
+          <h2 class="section-title">About the Developer</h2>
+          <div class="animate-on-scroll">
+            <img
+              src="data:image/webp;base64,UklGRr4KAABXRUJQVlA4ILIKAADQSACdASpcAQ4BPp1Oo0ulpKOhpfLJaLATiWlu/Gv7hnH/4/+4EdJ8J6+yhMe5j15s7Ff8P/b8kgAd++WfXsZ4AX4x/Td2BAB3cfyPmdpa9ATxZtDr1zwTyEmavV6mmms9PD/0nyj/MLTMzMPFdVWqfqGdZ0sL1qqqqqouJfq1LQBa67u7u64kBhVDoe0ZmZlGupn+Oha0yAAAAAAhsCvLn94rjt3Xl0rM1d8WK/NTMr4SW9dQlecTgvx/ToVI03+Dy15f/y69b6TT4hgY1/tvZG36ZenfsbvPaPZTR9UThAD4xUFH3lTYmWTw48Tv0qSVB7NywahYHozBkC6gURYz4i6zvTJILgA2iFUeJeNECe/BNBQ/+5EREREO8ckned2v+t4YgWPe4mhdnDP8zMzMzKRgukyJVDao4WlENcDLvVK2HJajFv7sE/0OTTjJG+7PtvvG/ICjIyqqqqhaL4yPqEDvnM29xi2g765csLMsPVLYK1Va1rWncSaMBQl2S35orUnlFmIbB+UIm71TpWs4xKcjyJiv07u7CLhuJFaYO5f3MqxQSzW1K7WHyJp+ruk5AzT/za8tmFSCsRxdv1/o8DmLKTQ2il6SsVsUVQkbB6hHdVSu4SUgmPgCZk8k1s6s2cMBygCJP6Kfs3ohycJ/HmKT7u7vVLk3uCcdcMkbwvZC8n12VeuTNymj2z05YGNArKtu7u7vtc7u+TuiYBaevtlLr7yrrsCuE8iNi+zMwUq7Y0sp90Q64a9uyvYwZ2kBl7264l1JP/qspqqsPwAA/sFdD8BfHc8GqILwnWkuP3w8NDpv14wkyR7Smsn2vxb55pnID+j2ZjEtEdqK8hlGZok9NQL35M4/x4ndMTZsntaaLIZ870OC016X3mWzcRxEoutuHHX7RKLcuT4Im1Sr1wODT2kOzY6ogEz7prcz9p3fx3jwz5k5XEOZSh9WfxzcC7l2/AABL8yNNaAyMw4PcAW8nW5K+/Y8ZImzLRSKm1+AoPxYETu/xivulBnZryGK0/hzhUOz+8w7OuTDTPhExe6i0Z1qPmjUB/smZ9gOe5tQzNnlU2t8tQkmzmTU2lQcs/amtTdfmXzW1RretwGVmt85fDAaMuMUFlRi0R3ZVXEt9LCPChSkBOKztqEUvWn775QSZQqN2OPUF+8jQkyPHN4hZXXMI37/6igprp7fYoHn4Fr9hzGH19HIzACaiVoY9A4S/eEeYbH0fAkhsKA+JPCIAZYbdMquBikIKyZqcXXPbOaA7IInEITBwqlNUqFendzSD/nYw1PkNnla2TKhfHzRxFQfvrnvlRGp3cpkbEN4g8lG0edd4+/X4JHpiWJreIkcsfleG7c6WCcQqUIPfYktfu3nYiE5ALQVFsRNcIEEo+y4tkBrPitsoDAXk21Y/9dsKfU3EWVMB3c1+Jj7gkZs7rYzBtEG57qLAR8+yNuqA6c9Sxv253/XRXxIyxyGaVxE2ngLpK567S2U+Shu/oRgB8W5ApvbM4NXilKj5GnEJvAiptQrfh4Jds1bzgRpK/edIHZGRA6da86o09GLt9UYoqw97ZTJJlPrVEMN/h5mZvaAVRSjBAGzkZleg31m/Ain87g8oPn7++SVQjafje5D/uJk8mX0M91QYtuSnAq5Lt4+L0XcOLPMecb4U9rQ/V/eMwyScUWwY5KfpSv/XNOtp6146+YU1jkoOS3ZlcfHH6ovGk0xMOj37AjVP1Q6END8HOZbFLT1+vZvzPsyRkpGhfAxHYbxZcWm3yyyQvYu8MnRFIPIL8OUhlpRM4A5nuWJPbhv/u8yi1jAF/7VN1/hvU9DRNJgFNFj65w7La+OY2/W4yiObcC0Jv3ETZJSJg879IHN87pAsEyE3dzurXKNeg9bsCEpLu+AUK/RnXm8lqIBYqeicnBGK+M6zqGAOllSKy5pHAL6IFeva5weLYijD9l5FTH8dEXnLhdC/4OXHMzgbm+GQnrkzKwIwwpTT79DHHGcbUmYnETkUItYtx1J26HAookaXHrPhrmO9EA4O027RPsx99HEe0KREvzDsPhE2NfkYudIkb9TFRkxU7SYzwk0qL9obux1QSzE+FXozr/bHaOrvjN0p9D4E+mjhH6eXxm2mAgEj+bp7YHF88SJ9bppxQ7KT7TbCCZPLkegTfDY22ivZM2QDEG2sCIsDpQGuP2W9iQaJqqitvJsAAQ837Fmfo8NEwb2wT+PrOxCv4t7PDO6751goXXFXdG6xA24rdxdWNdIU4a1n1v0s7dzpMYkHbvqn1hm93QPRPcnkWlQsqzojUGrVDLucUihoXkITNzEKUFVptNO3AZHc3n45unMHXjkU6n2IpLNzXiAbFhKuNS/IfdQBegDo6ELnsPnxSj5l1qsgLUcG6QTtz+oxAY3zVowbIqMkkuWDtkk1nMn9m3jbCROpb1qeAMezPg/drNdWW+B7t7hY/UYK8MCTpFq5BFCTlk0kpcEqw+RW0qv1GxJ9isLUvvDpFvsRJrf7jCyoJWorTwhn4zCtozDZV6LIN4PEZm92CFEPG4YQBZ4Z2xgI3t9RrOQOOe42Hf4AAmooXowHkRIMuXDYHK3BNRK3i4Nv7trYdMAuJ9X97e8SBhAtFz41G6c0I7tCbwNVRbA768zrGjYlOgkO4ti3gIapa3aOk1uXM7bCER8JKopI3oKleCsFufW4/Oe92KWub0QDSzz11updbl2cpk1GdHamZObJUrqFHnTweZUhULohdzwPDjj3+HApTi7E/1/llGWd9ZLVDS0I4ZrAYjTY4K1kXrZ1oUKXqftHE30LK71F+mnmDDXbrrPqe6MH9dO3+u+W0MyEJredkjIIeccvwGNutHrCS/JqZHpq+n4WB6eh/y/UgEND+qQDf1SX9cJ4tdtp0pd+5rKw2vZAyK29qTT6Wx2zygkoRuymokG1ypZroTxkrnMH2GNd3NFX4oZD9Q4o4LtFkO/LpLCaWv+Cq5vBl0LVOteVCBwmQPoXAMnqcmScjT50pIe7v/72tXNrYb7qnuuH3JqSXOl2ytOp/YY+b8ogQz9DOHxZSf6fT7TCf9tj2AyAnY9QFyeg95neG+jZJuRsu2OEXYGoFdtrWYSINvT/O0xyWAeAPmvvjSty7sDWxpeHXjCAkQffCYgkVFzOVvH5kZykQUW6G60fcoU11dKzcqHrhlHGO+kFNnCZs+zbwN0AXScb4yJQdwP6l1Co4Y1lkKfWd8tJpHC8NI/cZ7eupgONzSxpO4XmUV5Q3sjOi7NMY6JRvtJdKxL4fS1/8/Igqam1xnphDZLlaGCfsfbCXY0VF8jq7MD51ba4gZan8+GXWokWtl3Ia15ixDnTfXTTTgU0cJFTHBZhcxJyek43ONKmwbYIgMUsG5TbsK52MAR7wsfRMuV0VgLw/+qQ5YunHhLSiSBPf9ikZymHjpKqnAqQfhEsmic0IkFcEL5fwV7qm0AggPUJOdAKf2qYWNOLb1bGERszvIyWNVwGYzoB+H0XJ//qqtE3Ov03x+51TN2vvi0omCM1UJbnPffiXc2PacFeJD5n+vZh2due5WRjq0bq6azOAiDS3FPoIjISSq2ndvkdKsNqxqEB1PrWkOekBIHOQgd1uqOSARUEljuN35a48/8Lwd9FNgBk7lNrmJ+ilR7hgAAAA=="
+              alt="Durga Prasad Papugani"
+              style="
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                border: 4px solid var(--accent-primary);
+                margin-bottom: 20px;
+              "
+            />
+            <h3>Durga Prasad Papugani</h3>
+            <p style="font-weight: 600; color: var(--text-color)">
+              AI/ML Developer & IBM SkillsBuild Intern
+            </p>
+            <p style="max-width: 700px; margin: 20px auto 0 auto">
+              This project is a direct result of my passion for using technology
+              to solve real-world problems. I believe that data, when made
+              accessible and understandable, can empower people to make better
+              decisions. SalaryPredict AI is my contribution to making the
+              professional world a bit more transparent. Thank you for visiting
+              and using my tool.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Final CTA Section -->
+      <section class="container" style="padding-bottom: 100px">
+        <div
+          class="card animate-on-scroll"
+          style="
+            text-align: center;
+            border-color: var(--accent-secondary);
+            box-shadow: 0 0 30px rgba(252, 163, 17, 0.2);
+          "
+        >
+          <h2 style="font-size: 2.5rem; color: #fff">
+            Ready to Try the Model?
+          </h2>
+          <p class="section-subtitle" style="margin-bottom: 30px">
+            Launch the live application to get your own data-driven salary
+            prediction in seconds.
+          </p>
+          <a href="{{ url_for('predict_form') }}" class="btn btn-accent"
+            >Launch Live App</a
+          >
+        </div>
+      </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <p>
+          © 2024 Durga Prasad Papugani. A Machine Learning Project for Career
+          Transparency.
+          <br />
+          Built with <span style="color: var(--accent-primary)"></span> using
+          Python, Flask, and JavaScript.
+          <br />
+          <p>
+            Note:- this project is for educational purposes only and should not
+            be used for commercial applications.
+          </p>
+          <p>
+            Model trained on the data set only will provide predictions based on
+            that data.
+          </p>
+          <br />
+        </p>
+      </div>
+    </footer>
+    
+    <!-- Cookie Consent Banner HTML -->
+    <div id="cookie-consent-banner">
+        <div class="container cookie-content">
+            <p><strong>Note:</strong> We use local storage to enhance your experience by remembering your details for report generation. By using this site, you agree to this approach.</p>
+            <button id="accept-cookies-btn" class="btn btn-accent">Accept</button>
+        </div>
+    </div>
+
+
+    <script>
+      // Script for the animated plexus background
+      const canvas = document.getElementById("plexus-bg");
+      if (canvas) {
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particles = [];
+        const particleCount = Math.floor(
+          window.innerWidth < 768 ? 40 : canvas.width / 35
+        ); 
+
+        class Particle {
+          constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.vx = Math.random() * 0.4 - 0.2;
+            this.vy = Math.random() * 0.4 - 0.2;
+            this.radius = 1.5;
+          }
+          update() {
+            this.x += this.vx; this.y += this.vy;
+            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+          }
+          draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = "rgba(76, 201, 240, 0.5)";
+            ctx.fill();
+          }
+        }
+        function init() {
+          particles = [];
+          for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+          }
+        }
+        function connect() {
+          for (let a = 0; a < particles.length; a++) {
+            for (let b = a; b < particles.length; b++) {
+              const dx = particles[a].x - particles[b].x;
+              const dy = particles[a].y - particles[b].y;
+              const distance = Math.sqrt(dx * dx + dy * dy);
+              if (distance < 120) {
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(76, 201, 240, ${1 - distance / 120})`;
+                ctx.lineWidth = 0.5;
+                ctx.moveTo(particles[a].x, particles[a].y);
+                ctx.lineTo(particles[b].x, particles[b].y);
+                ctx.stroke();
+              }
+            }
+          }
+        }
+        function animate() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          for (const p of particles) { p.update(); p.draw(); }
+          connect();
+          requestAnimationFrame(animate);
+        }
+        init(); animate();
+        window.addEventListener("resize", () => {
+          canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+          init();
+        });
+      }
+
+      // Scroll Animation Logic
+      const scrollElements = document.querySelectorAll(".animate-on-scroll");
+      const elementInView = (el) =>
+        el.getBoundingClientRect().top <=
+        (window.innerHeight || document.documentElement.clientHeight);
+      const handleScrollAnimation = () => {
+        scrollElements.forEach((el) => {
+          if (elementInView(el)) {
+            el.classList.add("is-visible");
+          }
+        });
+      };
+      handleScrollAnimation();
+      window.addEventListener("scroll", handleScrollAnimation);
+
+      // Mobile Navigation Logic
+      const navToggle = document.querySelector(".nav-toggle");
+      const navLinks = document.querySelector(".nav-links");
+
+      navToggle.addEventListener("click", () => {
+        navLinks.classList.toggle("nav-open");
+        navToggle.classList.toggle("is-active");
+      });
+      document.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", () => {
+          if (navLinks.classList.contains("nav-open")) {
+            navLinks.classList.remove("nav-open");
+            navToggle.classList.remove("is-active");
+          }
+        });
+      });
+      
+      // Cookie Consent Banner Logic
+      document.addEventListener('DOMContentLoaded', () => {
+          const consentBanner = document.getElementById('cookie-consent-banner');
+          const acceptBtn = document.getElementById('accept-cookies-btn');
+
+          if (!localStorage.getItem('cookieConsentAccepted')) {
+              setTimeout(() => {
+                  consentBanner.classList.add('visible');
+              }, 500);
+          }
+
+          acceptBtn.addEventListener('click', () => {
+              localStorage.setItem('cookieConsentAccepted', 'true');
+              consentBanner.classList.remove('visible');
+          });
+      });
+    </script>
+  </body>
+</html>
