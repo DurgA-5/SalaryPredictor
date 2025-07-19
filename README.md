@@ -115,7 +115,7 @@ An end-to-end **Streamlit-based ML application** featuring:
 ## 🛠️ **Source Code**
 
 ```bash
-git clone https://github.com/DurgaPrasadPapugani/employee-salary-app.git
+git clone [https://github.com/DurgaPrasadPapugani/employee-salary-app.git](https://github.com/DurgA-5/SalaryPredictor.git)
 ```
 
 ---
