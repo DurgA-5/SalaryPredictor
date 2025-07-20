@@ -395,11 +395,10 @@
         <nav class="navbar">
           <a href="#" class="nav-logo"><span>S</span>alaryPredict AI</a>
           <ul class="nav-links">
-            <li><a href="#problem">The Problem</a></li>
-            <li><a href="#pipeline">Pipeline</a></li>
-            <li><a href="#results">Results</a></li>
-            <li><a href="#ethics">Ethics</a></li>
-            <li><a href="#roadmap">Roadmap</a></li>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+          
+            <li><a href="{{ url_for('predict_form') }}">Run Analysis</a></li>
+            <li><a href="{{ url_for('about_tech') }}" class="active">About & Tech</a></li>
           </ul>
           <!-- Hamburger Menu Button -->
           <button class="nav-toggle" aria-label="toggle navigation">
