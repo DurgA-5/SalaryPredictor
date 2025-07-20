@@ -263,12 +263,16 @@
     <header class="header">
       <div class="container">
         <nav class="navbar">
-          <a href="index.html" class="nav-logo"
+          <a href="{{ url_for('index') }}" class="nav-logo"
             ><span>S</span>alaryPredict AI</a
           >
           <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="#report-intro" class="active">About & Tech</a></li>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li>
+              <a href="{{ url_for('about_tech') }}" class="active"
+                >About & Tech</a
+              >
+            </li>
             <li><a href="{{ url_for('predict_form') }}">Run Analysis</a></li>
           </ul>
         </nav>
