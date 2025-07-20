@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About & Technology - SalaryPredict AI</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <style>
+      /* --- THEME: Bio-Mechanical & Immersive --- */
+      :root {
+        --bg-color: #0a192f; /* Deep Navy */
+        --card-bg: #112240; /* Lighter Navy */
+        --border-color: rgba(76, 201, 240, 0.2);
+        --text-color: #ccd6f6; /* Light Lavender-White */
+        --text-secondary: #8892b0;
+        --accent-primary: #4cc9f0; /* Vibrant Cyan */
+        --accent-secondary: #fca311; /* Striking Amber/Gold */
+        --font-main: "Inter", sans-serif;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--font-main);
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.7;
+      }
+      #plexus-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      }
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-weight: 600;
+        line-height: 1.3;
+        color: #fff;
+      }
+      p {
+        color: var(--text-secondary);
+        margin-bottom: 15px;
+      }
+      a {
+        text-decoration: none;
+        color: var(--accent-primary);
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
+      a:hover {
+        color: #fff;
+      }
+      .section {
+        padding: 100px 0;
+        position: relative;
+      }
+      .section-title {
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .section-subtitle {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 60px auto;
+        font-size: 1.1rem;
+      }
+
+      .header {
+        background-color: rgba(10, 25, 47, 0.85);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 15px 0;
+        border-bottom: 1px solid var(--border-color);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .nav-logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #fff;
+      }
+      .nav-logo span {
+        color: var(--accent-primary);
+      }
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 25px;
+      }
+      .nav-links a {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        font-weight: 500;
+      }
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--accent-primary);
+      }
+
+      .card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 30px;
+        height: 100%;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 25px rgba(76, 201, 240, 0.2);
+        border-color: var(--accent-primary);
+      }
+      .card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+      }
+      .card ul {
+        list-style: none;
+        padding-left: 0;
+      }
+      .card ul li {
+        margin-bottom: 10px;
+        color: var(--text-secondary);
+        display: flex;
+        align-items: flex-start;
+      }
+      .card ul li .icon {
+        color: var(--accent-primary);
+        margin-right: 12px;
+        font-style: normal;
+        width: 20px;
+        text-align: center;
+        flex-shrink: 0;
+        margin-top: 4px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 28px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 1px solid var(--accent-secondary);
+      }
+      .btn-accent {
+        background-color: var(--accent-secondary);
+        color: var(--bg-color);
+      }
+      .btn-accent:hover {
+        background-color: #ffb703;
+        border-color: #ffb703;
+        transform: translateY(-3px);
+      }
+
+      .grid-2,
+      .grid-3 {
+        display: grid;
+        gap: 30px;
+      }
+      .grid-2 {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      }
+      .grid-3 {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
+
+      .footer {
+        text-align: center;
+        padding: 60px 20px;
+        background-color: var(--card-bg);
+        border-top: 1px solid var(--border-color);
+      }
+      .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+      .animate-on-scroll.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Styles for Expanded Tech Stack & Workflow Sections */
+      .tech-feature-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        align-items: center;
+        margin-bottom: 80px;
+      }
+      .tech-feature-img-container {
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+      .tech-feature-img-container img {
+        width: 100%;
+        display: block;
+        height: auto;
+      }
+      .tech-feature-content h3 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+      }
+      .tech-feature-content ul li {
+        list-style-type: "✓  ";
+        padding-left: 10px;
+      }
+      .tech-feature-content ul {
+        padding-left: 20px;
+      }
+
+      @media (max-width: 900px) {
+        .tech-feature-grid {
+          grid-template-columns: 1fr;
+        }
+        .tech-feature-grid .tech-feature-img-container {
+          order: -1; /* Make image appear first on mobile */
+        }
+        .tech-feature-grid:nth-child(even) .tech-feature-img-container {
+          order: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Animated Plexus Background -->
+    <canvas id="plexus-bg"></canvas>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <nav class="navbar">
+          <a href="index.html" class="nav-logo"
+            ><span>S</span>alaryPredict AI</a
+          >
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#report-intro" class="active">About & Tech</a></li>
+            <li><a href="{{ url_for('predict_form') }}">Run Analysis</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- =================================================================== -->
+      <!-- PART 1: PROJECT REPORT SUMMARY (UNCHANGED)                          -->
+      <!-- =================================================================== -->
+      <section id="report-intro" class="section">
+        <div class="container">
+          <h2 class="section-title animate-on-scroll">
+            💼 Internship Project Report
+          </h2>
+          <div
+            class="card animate-on-scroll"
+            style="transition-delay: 0.1s; max-width: 800px; margin: 0 auto"
+          >
+            <h3>🌟 Project: Employee Salary Prediction System</h3>
+            <h4 style="color: var(--accent-primary); margin-top: 25px">
+              🎓 IBM SkillsBuild Virtual Internship
+            </h4>
+            <p>
+              This project was developed as part of a 6-week internship in
+              Artificial Intelligence & Machine Learning, supported by the
+              Edunet Foundation.
+            </p>
+            <ul>
+              <li>
+                <span class="icon">✨</span><strong>Objective:</strong> To build
+                a smart, interactive web application to assist HR teams and job
+                seekers in making data-driven compensation decisions using
+                machine learning.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" style="padding-top: 0">
+        <div class="container">
+          <div class="grid-2">
+            <div class="card animate-on-scroll">
+              <h3>⚡ Key Features & Capabilities</h3>
+              <ul>
+                <li>
+                  <span class="icon">🔍</span>Real-time salary prediction using
+                  robust ML models.
+                </li>
+                <li>
+                  <span class="icon">🧼</span>A complete, automated data
+                  preprocessing pipeline.
+                </li>
+                <li>
+                  <span class="icon">📄</span>Smart resume parser for easy data
+                  input.
+                </li>
+                <li>
+                  <span class="icon">📅</span>Dynamic PDF report generation with
+                  prediction results.
+                </li>
+                <li>
+                  <span class="icon">📊</span>Advanced data visualizations and
+                  statistical testing.
+                </li>
+                <li>
+                  <span class="icon">☁️</span>Fully deployed to the cloud for
+                  public access.
+                </li>
+              </ul>
+            </div>
+            <div class="card animate-on-scroll" style="transition-delay: 0.1s">
+              <h3>🎯 Core Achievements</h3>
+              <ul>
+                <li>
+                  <span class="icon">✅</span>Successfully designed and deployed
+                  a complete ML web application from scratch.
+                </li>
+                <li>
+                  <span class="icon">🧠</span>Tuned and validated multiple
+                  models with rigorous evaluation metrics (R², RMSE, MAE,
+                  Cross-Validation).
+                </li>
+                <li>
+                  <span class="icon">💡</span>Designed a clean, intuitive, and
+                  user-friendly UI/UX.
+                </li>
+                <li>
+                  <span class="icon">📁</span>Sourced, cleaned, and engineered
+                  features from a real-world dataset of over 10,000 records.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- PART 2: TECHNOLOGY DEEP DIVE (UNCHANGED)                           -->
+      <!-- =================================================================== -->
+      <section id="technology" class="section">
+        <div class="container">
+          <h2 class="section-title animate-on-scroll">
+            The Architecture of Intelligence
+          </h2>
+          <p
+            class="section-subtitle animate-on-scroll"
+            style="transition-delay: 0.1s"
+          >
+            The project's success lies in the careful selection and integration
+            of powerful, industry-standard technologies. Each component was
+            chosen for a specific purpose, creating a seamless flow from data to
+            deployment.
+          </p>
+
+          <div class="tech-feature-grid animate-on-scroll">
+            <div class="tech-feature-img-container">
+              <img
+                src="data:image/webp;base64,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"
+                alt="Python code on a dark-themed monitor"
+              />
+            </div>
+            <div class="tech-feature-content">
+              <h3>Python & Web Frameworks</h3>
+              <p>
+                Python was the natural choice for this project. As the dominant
+                language for data science, its vast ecosystem of libraries is
+                unparalleled. For the web interface, both
+                <strong>Flask</strong> and <strong>Streamlit</strong> were
+                utilized. Flask provided the flexibility to create a custom,
+                traditional web front-end, while Streamlit enabled the rapid
+                development of interactive data dashboards, showcasing the
+                project's versatility.
+              </p>
+            </div>
+          </div>
+
+          <div class="tech-feature-grid animate-on-scroll">
+            <div class="tech-feature-content">
+              <h3>Pandas & NumPy: The Data Bedrock</h3>
+              <p>
+                All data wrangling and manipulation are powered by this dynamic
+                duo. <strong>NumPy</strong> provides the fundamental,
+                high-performance array objects. <strong>Pandas</strong> builds
+                on this to provide the intuitive and powerful DataFrame, which
+                was essential for loading, cleaning, and engineering features
+                from the raw employee dataset.
+              </p>
+            </div>
+            <div class="tech-feature-img-container">
+              <img
+                src="data:image/webp;base64,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"
+                alt="A computer screen showing complex data analytics dashboards and charts"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- PART 3: MACHINE LEARNING CORE (UNCHANGED)                         -->
+      <!-- =================================================================== -->
+      <section id="models" class="section" style="padding-top: 0">
+        <div class="container">
+          <h2 class="section-title animate-on-scroll">
+            🤖 The Machine Learning Core
+          </h2>
+          <p
+            class="section-subtitle animate-on-scroll"
+            style="transition-delay: 0.1s"
+          >
+            A multi-model approach was benchmarked to ensure the most accurate
+            and robust predictive engine. We explored several algorithms before
+            selecting a final champion.
+          </p>
+          <div class="grid-2">
+            <div class="card animate-on-scroll" style="transition-delay: 0.2s">
+              <h3>All Models Evaluated</h3>
+              <p>
+                To find the optimal solution, we trained and rigorously tested
+                the following regression algorithms using Scikit-learn:
+              </p>
+              <ul>
+                <li>
+                  <span class="icon"></span>Linear Regression & Random Forest
+                </li>
+                <li><span class="icon"></span>XGBoost Regressor</li>
+                <li>
+                  <span class="icon"></span>GridSearchCV for hyperparameter
+                  tuning
+                </li>
+                <li>
+                  <span class="icon"></span>K-Fold Cross Validation for
+                  robustness
+                </li>
+              </ul>
+            </div>
+            <div class="card animate-on-scroll" style="transition-delay: 0.3s">
+              <h3>Why XGBoost Was Chosen</h3>
+              <p>
+                After extensive benchmarking, the
+                <strong>XGBoost Regressor</strong> consistently demonstrated
+                superior performance, delivering the best balance of accuracy,
+                speed, and resistance to overfitting, making it ideal for the
+                final application.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- PART 4: DEVELOPMENT WORKFLOW (NEW, MORE DETAILED SECTION)           -->
+      <!-- =================================================================== -->
+      <section id="workflow" class="section">
+        <div class="container">
+          <h2 class="section-title animate-on-scroll">
+            From Notebook to Application
+          </h2>
+          <p
+            class="section-subtitle animate-on-scroll"
+            style="transition-delay: 0.1s"
+          >
+            The project followed a standard two-phase development workflow,
+            moving from an interactive research environment to a stable,
+            production-ready application. This separation of concerns is
+            critical for building reliable ML systems.
+          </p>
+
+          <!-- Phase 1: Jupyter -->
+          <div
+            class="tech-feature-grid animate-on-scroll"
+            style="transition-delay: 0.2s"
+          >
+            <div class="tech-feature-img-container">
+              <img
+                src="https://th.bing.com/th/id/OIP.wOHyKy6fl3ltcBMNpCvC6QHaB_?w=332&h=94&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3"
+                alt="A computer screen showing a data science Jupyter Notebook with code and graphs."
+              />
+            </div>
+            <div class="tech-feature-content">
+              <h3>Phase 1: The Research Lab (Jupyter)</h3>
+              <p>
+                The project began in
+                <strong>Jupyter Notebooks (.ipynb files)</strong>. This
+                interactive environment is the "research and development lab"
+                where hypotheses are tested, data is explored, and models are
+                born. Its cell-by-cell execution and inline plotting
+                capabilities make it perfect for rapid iteration and discovery.
+              </p>
+              <p>
+                The goal of this phase is not just to write code, but to produce
+                validated logic and assets. The key deliverables from the
+                Jupyter notebook were:
+              </p>
+              <ul>
+                <li>A finalized, reproducible data preprocessing pipeline.</li>
+                <li>The trained and validated XGBoost model object.</li>
+                <li>
+                  The fitted `StandardScaler` and `OneHotEncoder` objects.
+                </li>
+              </ul>
+              <p>
+                Crucially, these final objects were serialized (saved to disk)
+                using Python's `pickle` library, creating `.pkl` files. These
+                files are the "blueprints" that the production application will
+                use, ensuring perfect consistency.
+              </p>
+            </div>
+          </div>
+
+          <!-- Phase 2: Flask -->
+          <div
+            class="tech-feature-grid animate-on-scroll"
+            style="transition-delay: 0.3s"
+          >
+            <div class="tech-feature-content">
+              <h3>Phase 2: The Production Factory (Flask)</h3>
+              <p>
+                If the notebook is the lab, the
+                <strong>Flask `app.py` script</strong> is the factory floor. It
+                is designed for one purpose: to efficiently and reliably execute
+                the proven process developed in the research phase. It does not
+                perform experiments; it orchestrates the live application.
+              </p>
+              <p>
+                When a user submits the form on the website, the `app.py` script
+                performs a precise sequence of operations:
+              </p>
+              <ul>
+                <li>Receives the raw input data from the web form.</li>
+                <li>
+                  Loads the pre-trained model and preprocessing objects (the
+                  `.pkl` files) from disk.
+                </li>
+                <li>
+                  Applies the *exact same* scaling and encoding transformations
+                  to the user's input as were used on the original training
+                  data.
+                </li>
+                <li>
+                  Feeds the processed feature vector into the model to generate
+                  a prediction.
+                </li>
+                <li>
+                  Renders an HTML template, passing the prediction result back
+                  to the user's browser.
+                </li>
+              </ul>
+              <p>
+                This decoupling of research and production is a cornerstone of
+                MLOps, ensuring that the live application is stable, fast, and
+                consistent.
+              </p>
+            </div>
+            <div class="tech-feature-img-container">
+              <img
+                src="https://th.bing.com/th/id/OIP.R07X0FhpZ_VupPZP3NpacAHaEK?w=322&h=181&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3"
+                alt="Close-up of backend Python Flask code on a screen."
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- PART 5: PERSONAL CONTRIBUTION & VISION (UNCHANGED)                  -->
+      <!-- =================================================================== -->
+      <section id="contribution" class="section" style="padding-top: 0">
+        <div class="container">
+          <div class="grid-3">
+            <div class="card animate-on-scroll">
+              <h3>👨‍💼 My Role</h3>
+              <p>
+                As the sole developer, I was responsible for the entire project
+                lifecycle: from system design and data preprocessing to model
+                training, full-stack development, and final cloud deployment.
+              </p>
+            </div>
+            <div class="card animate-on-scroll" style="transition-delay: 0.1s">
+              <h3>📚 What I Learned</h3>
+              <p>
+                This project was a deep dive into building and deploying ML apps
+                end-to-end. It solidified my skills in data engineering, model
+                evaluation, and the critical importance of creating a seamless
+                user experience for AI tools.
+              </p>
+            </div>
+            <div class="card animate-on-scroll" style="transition-delay: 0.2s">
+              <h3>🔮 Future Enhancements</h3>
+              <p>
+                The roadmap includes integrating LLMs for deeper resume
+                insights, adding salary forecasting with Time Series models, and
+                expanding to international datasets.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Final CTA and Acknowledgements -->
+      <section class="section" style="padding-top: 0; padding-bottom: 100px">
+        <div class="container">
+          <div class="card animate-on-scroll" style="text-align: center">
+            <h3>Explore the Project</h3>
+            <p class="section-subtitle" style="margin: 20px auto 30px auto">
+              Experience the application firsthand or dive into the code on
+              GitHub.
+            </p>
+            <a
+              href="https://your-streamlit-app-link.streamlit.app/"
+              target="_blank"
+              class="btn btn-accent"
+              style="margin: 5px 10px"
+              >🔗 Launch Live App</a
+            >
+            <a
+              href="https://github.com/DurgA-5/SalaryPredictor.git"
+              target="_blank"
+              class="btn"
+              style="
+                background-color: transparent;
+                border: 1px solid var(--accent-primary);
+                color: var(--accent-primary);
+                margin: 5px 10px;
+              "
+              >🛠️ View Source Code</a
+            >
+          </div>
+
+          <div
+            style="text-align: center; margin-top: 80px"
+            class="animate-on-scroll"
+          >
+            <h2 style="font-size: 1.8rem">🙌 Acknowledgements</h2>
+            <p style="max-width: 700px; margin: 15px auto 0 auto">
+              Special thanks to Edunet Foundation and IBM SkillsBuild for this
+              invaluable internship opportunity, which was instrumental in
+              enhancing my practical AI/ML, software engineering, and deployment
+              skills.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>
+          © 2025 Durga Prasad Papugani. A Machine Learning Project for Career
+          Transparency.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // Scroll Animation Logic
+      const scrollElements = document.querySelectorAll(".animate-on-scroll");
+      const elementInView = (el) =>
+        el.getBoundingClientRect().top <=
+        (window.innerHeight || document.documentElement.clientHeight);
+      const handleScrollAnimation = () => {
+        scrollElements.forEach((el) => {
+          if (elementInView(el)) {
+            el.classList.add("is-visible");
+          }
+        });
+      };
+      window.addEventListener("scroll", handleScrollAnimation);
+      handleScrollAnimation();
+
+      // Plexus background script (omitted for brevity, but should be included here)
+      // ... same plexus script as before ...
+    </script>
+  </body>
+</html>
