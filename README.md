@@ -83,7 +83,7 @@ An end-to-end **Streamlit-based ML application** featuring:
 
 ## 🌍 **Live Demo**
 
-🔗 [**Open App on Streamlit**](https://employee-salary-app.streamlit.app)
+🔗 (https://smartsalarypredictor.onrender.com/about-tech)](https://smartsalarypredictor.onrender.com/)
 
 ---
 
