@@ -55,7 +55,7 @@ An end-to-end **Streamlit-based ML application** featuring:
 
 * **Dataset Name:** `EMPLOYEE_DATASET`
 * **Source:** **Kaggle**
-* **Size:** **10,000+ rows**
+* **Size:** **500+ rows**
 * **Key Features:** Department, Education, KPIs, Experience, Number of Workers, Target Productivity (used as salary proxy)
 * **Preprocessing:** Outlier removal, encoding, feature scaling, date parsing
 
@@ -73,7 +73,6 @@ An end-to-end **Streamlit-based ML application** featuring:
 ## 🎯 **Achievements**
 
 * ✅ **Deployed a complete ML web app from scratch**
-* 📄 **Implemented a smart resume parser**
 * 📋 **PDF report generation for predictions**
 * 💡 **Designed a clean and user-friendly UI**
 * 🧠 **Tuned and validated models with proper evaluation**
@@ -122,10 +121,11 @@ git clone [https://github.com/DurgaPrasadPapugani/employee-salary-app.git](https
 
 ## 🔮 **Future Enhancements**
 
-* Integrate **LLMs (ChatGPT/Gemini)** for resume insights
-* Add **salary forecasting using Time Series models**
-* Expand support for **international salary datasets**
-* Implement **login, session state, and DB storage**
+**Work In Progress - Employee Salary Prediction through Machine Learning deployment through Streamlit [https://employeepredictor.streamlit.app/ ]View App**
+
+**Planned - ChatBot SmartSalaryPredictor**
+
+**Researching - Expansion to international markets data set (US, UK, Canada).**
 
 ---
 
