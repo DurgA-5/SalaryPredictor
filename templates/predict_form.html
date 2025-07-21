@@ -1,4 +1,3 @@
-<!-- templates/predict_form.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,40 +9,32 @@
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
     <style>
-        /* --- THEME: Bio-Mechanical & Immersive (Consistent with Home Page) --- */
         :root {
-            --bg-color: #0a192f; /* Deep Navy */
-            --card-bg: #112240; /* Lighter Navy */
-            --input-bg: #0a192f; /* Same as main background */
+            --bg-color: #0a192f;
+            --card-bg: #112240;
+            --input-bg: #0a192f;
             --border-color: rgba(76, 201, 240, 0.2);
-            --text-color: #ccd6f6; /* Light Lavender-White */
+            --text-color: #ccd6f6;
             --text-secondary: #8892b0;
-            --accent-primary: #4cc9f0; /* Vibrant Cyan */
+            --accent-primary: #4cc9f0;
             --accent-primary-glow: rgba(76, 201, 240, 0.25);
-            --accent-secondary: #fca311; /* Striking Amber/Gold */
+            --accent-secondary: #fca311;
             --error-color: #ef4444;
             --font-main: "Inter", sans-serif;
         }
-        
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         html { scroll-behavior: smooth; }
-
         body {
             font-family: var(--font-main);
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.7;
-            padding-top: 80px; /* Space for sticky header */
+            padding-top: 80px;
             padding-bottom: 40px;
         }
-        
-        /* Animated Plexus Background (from home page) */
         #plexus-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
         }
-
-        /* --- Header --- */
         .site-header {
             position: fixed; top: 0; left: 0; width: 100%;
             background-color: rgba(10, 25, 47, 0.85); backdrop-filter: blur(10px);
@@ -55,19 +46,14 @@
         }
         .site-logo { font-size: 1.5rem; font-weight: 700; color: #fff; text-decoration: none; }
         .site-logo span { color: var(--accent-primary); }
-        
-        /* --- Main Content Container --- */
         .container {
             max-width: 700px; width: 95%; margin: 40px auto 0;
             background: var(--card-bg); border: 1px solid var(--border-color);
             padding: 40px; border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 1;
         }
-
         .form-header { text-align: center; margin-bottom: 35px; }
         .form-header h2 { font-size: 2rem; font-weight: 600; letter-spacing: 1px; color: #fff; }
-
-        /* --- Form Styling --- */
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
         .form-group.full-width { grid-column: 1 / -1; }
         label {
@@ -84,18 +70,15 @@
             outline: none; border-color: var(--accent-primary);
             box-shadow: 0 0 0 3px var(--accent-primary-glow);
         }
-        /* Style for select dropdown arrow */
         select {
-          -webkit-appearance: none;
-          -moz-appearance: none;
-          appearance: none;
-          background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%238892b0%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22/%3E%3C/svg%3E');
-          background-repeat: no-repeat;
-          background-position: right 15px top 50%;
-          background-size: 0.65em auto;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%238892b0%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22/%3E%3C/svg%3E');
+            background-repeat: no-repeat;
+            background-position: right 15px top 50%;
+            background-size: 0.65em auto;
         }
-
-        /* --- Buttons --- */
         .btn {
             display: inline-block; padding: 10px 24px; border-radius: 8px;
             font-family: inherit; font-size: 0.95rem; font-weight: 600;
@@ -117,14 +100,11 @@
         .btn-outline:hover {
             background-color: var(--accent-primary-glow);
         }
-
         input[type="submit"] {
             grid-column: 1 / -1; margin-top: 20px;
             padding: 14px; font-size: 1.1rem; letter-spacing: 1px;
             text-transform: uppercase;
         }
-
-        /* --- Prediction Result --- */
         .prediction-result {
             margin-top: 35px; padding: 25px; border-radius: 8px;
             border: 1px solid var(--border-color); background-color: var(--input-bg);
@@ -140,8 +120,6 @@
         .success .result-value { color: var(--accent-primary); }
         .error .result-value { color: var(--error-color); }
         .result-actions { text-align: center; margin-top: 25px; }
-        
-        /* --- Modal Styles --- */
         .modal-backdrop {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px);
@@ -159,7 +137,6 @@
         .modal-content .form-group { margin-bottom: 20px; }
         .modal-content .form-group:last-child { margin-bottom: 0; }
         .modal-content .btn { width: 100%; padding-top: 14px; padding-bottom: 14px; }
-
         @media (max-width: 768px) {
             .form-grid { grid-template-columns: 1fr; }
             .form-header h2 { font-size: 1.5rem; }
@@ -170,10 +147,7 @@
     </style>
 </head>
 <body>
-    <!-- Animated Plexus Background -->
     <canvas id="plexus-bg"></canvas>
-
-    <!-- User Info Modal -->
     <div id="user-info-modal" class="modal-backdrop">
         <div class="modal-content">
             <h3>Welcome to SalaryPredict AI</h3>
@@ -188,30 +162,103 @@
             <button id="save-user-info" class="btn btn-accent">Continue</button>
         </div>
     </div>
-
     <header class="site-header">
         <div class="nav-container">
             <a href="{{ url_for('home') }}" class="site-logo"><span>S</span>alaryPredict AI</a>
             <a href="{{ url_for('home') }}" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Back to Home</a>
         </div>
     </header>
-
     <main class="container">
         <header class="form-header"><h2>Prediction Interface</h2></header>
-
         <form id="prediction-main-form" action="{{ url_for('predict') }}" method="POST">
             <div class="form-grid">
-                <!-- Fields for Prediction -->
                 <div class="form-group"><label for="age">Age</label><input type="number" id="age" name="Age" min="18" max="99" required placeholder="e.g., 32" value="{{ form_data.get('Age', '') }}"></div>
                 <div class="form-group"><label for="years_of_experience">Experience (Yrs)</label><input type="number" id="years_of_experience" name="Years of Experience" min="0" max="50" required placeholder="e.g., 5" value="{{ form_data.get('Years of Experience', '') }}"></div>
-                <div class="form-group"><label for="gender">Gender</label><select id="gender" name="Gender" required><option value="" disabled {% if not form_data.get('Gender') %}selected{% endif %}>Select Gender</option><option value="Male" {% if form_data.get('Gender') == 'Male' %}selected{% endif %}>Male</option><option value="Female" {% if form_data.get('Gender') == 'Female' %}selected{% endif %}>Female</option></select></div>
-                <div class="form-group"><label for="education_level">Education</label><select id="education_level" name="Education Level" required><option value="" disabled {% if not form_data.get('Education Level') %}selected{% endif %}>Select Education</option><option value="Bachelor's" {% if form_data.get('Education Level') == "Bachelor's" %}selected{% endif %}>Bachelor's</option><option value="Master's" {% if form_data.get('Education Level') == "Master's" %}selected{% endif %}>Master's</option><option value="PhD" {% if form_data.get('Education Level') == "PhD" %}selected{% endif %}>PhD</option></select></div>
-                <div class="form-group full-width"><label for="job_title">Job Title</label><select id="job_title" name="Job Title" required><option value="" disabled {% if not form_data.get('Job Title') %}selected{% endif %}>Select Job Title</option><option value="Software Engineer" {% if form_data.get('Job Title') == 'Software Engineer' %}selected{% endif %}>Software Engineer</option><option value="Data Analyst" {% if form_data.get('Job Title') == 'Data Analyst' %}selected{% endif %}>Data Analyst</option><option value="HR Manager" {% if form_data.get('Job Title') == 'HR Manager' %}selected{% endif %}>HR Manager</option><option value="Sales Manager" {% if form_data.get('Job Title') == 'Sales Manager' %}selected{% endif %}>Sales Manager</option><option value="Director" {% if form_data.get('Job Title') == 'Director' %}selected{% endif %}>Director</option><option value="CEO" {% if form_data.get('Job Title') == 'CEO' %}selected{% endif %}>CEO</option></select></div>
-                
+                <div class="form-group"><label for="gender">Gender</label>
+                    <select id="gender" name="Gender" required>
+                        <option value="" disabled {% if not form_data.get('Gender') %}selected{% endif %}>Select Gender</option>
+                        <option value="Male" {% if form_data.get('Gender') == 'Male' %}selected{% endif %}>Male</option>
+                        <option value="Female" {% if form_data.get('Gender') == 'Female' %}selected{% endif %}>Female</option>
+                    </select>
+                </div>
+                <div class="form-group"><label for="education_level">Education</label>
+                    <select id="education_level" name="Education Level" required>
+                        <option value="" disabled {% if not form_data.get('Education Level') %}selected{% endif %}>Select Education</option>
+                        <option value="Bachelor's" {% if form_data.get('Education Level') == "Bachelor's" %}selected{% endif %}>Bachelor's</option>
+                        <option value="Master's" {% if form_data.get('Education Level') == "Master's" %}selected{% endif %}>Master's</option>
+                        <option value="PhD" {% if form_data.get('Education Level') == "PhD" %}selected{% endif %}>PhD</option>
+                    </select>
+                </div>
+                <div class="form-group full-width"><label for="job_title">Job Title</label>
+                    <select id="job_title" name="Job Title" required>
+                        <option value="" disabled {% if not form_data.get('Job Title') %}selected{% endif %}>Select Job Title</option>
+                        <option value="Software Engineer" {% if form_data.get('Job Title') == 'Software Engineer' %}selected{% endif %}>Software Engineer</option>
+                        <option value="Data Analyst" {% if form_data.get('Job Title') == 'Data Analyst' %}selected{% endif %}>Data Analyst</option>
+                        <option value="HR Manager" {% if form_data.get('Job Title') == 'HR Manager' %}selected{% endif %}>HR Manager</option>
+                        <option value="Sales Manager" {% if form_data.get('Job Title') == 'Sales Manager' %}selected{% endif %}>Sales Manager</option>
+                        <option value="Director" {% if form_data.get('Job Title') == 'Director' %}selected{% endif %}>Director</option>
+                        <option value="CEO" {% if form_data.get('Job Title') == 'CEO' %}selected{% endif %}>CEO</option>
+                    </select>
+                </div>
+                <div class="form-group"><label for="country">Country</label>
+                    <input type="text" id="country" name="Country" required placeholder="e.g., India">
+                </div>
+                <div class="form-group"><label for="industry">Industry</label>
+                    <select id="industry" name="Industry" required>
+                        <option value="" disabled selected>Select Industry</option>
+                        <option value="IT">Information Technology</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Healthcare">Healthcare</option>
+                        <option value="Education">Education</option>
+                        <option value="Retail">Retail</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group"><label for="company-size">Company Size</label>
+                    <select id="company-size" name="Company Size" required>
+                        <option value="" disabled selected>Select Size</option>
+                        <option value="1-50">1-50</option>
+                        <option value="51-200">51-200</option>
+                        <option value="201-1000">201-1,000</option>
+                        <option value="1001-10000">1,001-10,000</option>
+                        <option value="10000+">10,000+</option>
+                    </select>
+                </div>
+                <div class="form-group"><label for="employment-type">Employment Type</label>
+                    <select id="employment-type" name="Employment Type" required>
+                        <option value="" disabled selected>Select Employment Type</option>
+                        <option value="Full-time">Full-time</option>
+                        <option value="Part-time">Part-time</option>
+                        <option value="Contract">Contract</option>
+                        <option value="Internship">Internship</option>
+                        <option value="Freelance">Freelance</option>
+                    </select>
+                </div>
+                <div class="form-group"><label for="remote">Remote or On-site</label>
+                    <select id="remote" name="Remote" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="Remote">Remote</option>
+                        <option value="Hybrid">Hybrid</option>
+                        <option value="On-site">On-site</option>
+                    </select>
+                </div>
+                <div class="form-group"><label for="skills">Key Skills (comma-separated)</label>
+                    <input type="text" id="skills" name="Skills" placeholder="e.g., Python, SQL, Leadership">
+                </div>
+                <div class="form-group"><label for="certifications">Certifications (comma-separated)</label>
+                    <input type="text" id="certifications" name="Certifications" placeholder="e.g., PMP, AWS Certified">
+                </div>
+                <div class="form-group"><label for="relocate">Willing to Relocate</label>
+                    <select id="relocate" name="Willing to Relocate" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                        <option value="Maybe">Maybe</option>
+                    </select>
+                </div>
                 <input type="submit" value="Execute Prediction" class="btn btn-accent">
             </div>
         </form>
-
         {% if prediction_text or error_text %}
             <div class="prediction-result {% if prediction_text %}success{% else %}error{% endif %}">
                 {% if prediction_text %}
@@ -219,91 +266,122 @@
                     <div class="result-value">{{ prediction_text }}</div>
                     <div class="result-actions"><a id="download-pdf-btn" href="#" class="btn btn-outline"><i class="fas fa-file-arrow-down"></i> Download Report</a></div>
                 {% elif error_text %}
-                     <span class="result-label">Prediction Failure</span>
+                    <span class="result-label">Prediction Failure</span>
                     <div class="result-value">{{ error_text }}</div>
                 {% endif %}
             </div>
         {% endif %}
     </main>
-
     <script>
-        // --- Plexus Background Animation Script ---
         const canvas = document.getElementById("plexus-bg");
         if (canvas) {
-          const ctx = canvas.getContext("2d");
-          canvas.width = window.innerWidth;
-          canvas.height = window.innerHeight;
-          let particles = [];
-          const particleCount = Math.floor(window.innerWidth < 768 ? 40 : canvas.width / 35);
-
-          class Particle {
-            constructor() {
-              this.x = Math.random() * canvas.width;
-              this.y = Math.random() * canvas.height;
-              this.vx = Math.random() * 0.4 - 0.2;
-              this.vy = Math.random() * 0.4 - 0.2;
-              this.radius = 1.5;
-            }
-            update() {
-              this.x += this.vx; this.y += this.vy;
-              if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-              if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-            }
-            draw() {
-              ctx.beginPath();
-              ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-              ctx.fillStyle = "rgba(76, 201, 240, 0.5)";
-              ctx.fill();
-            }
-          }
-          function init() {
-            particles = [];
-            for (let i = 0; i < particleCount; i++) {
-              particles.push(new Particle());
-            }
-          }
-          function connect() {
-            for (let a = 0; a < particles.length; a++) {
-              for (let b = a; b < particles.length; b++) {
-                const dx = particles[a].x - particles[b].x;
-                const dy = particles[a].y - particles[b].y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < 120) {
-                  ctx.beginPath();
-                  ctx.strokeStyle = `rgba(76, 201, 240, ${1 - distance / 120})`;
-                  ctx.lineWidth = 0.5;
-                  ctx.moveTo(particles[a].x, particles[a].y);
-                  ctx.lineTo(particles[b].x, particles[b].y);
-                  ctx.stroke();
+            const ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            let particles = [];
+            const particleCount = Math.floor(window.innerWidth < 768 ? 40 : canvas.width / 35);
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.vx = Math.random() * 0.4 - 0.2;
+                    this.vy = Math.random() * 0.4 - 0.2;
+                    this.radius = 1.5;
                 }
-              }
+                update() {
+                    this.x += this.vx; this.y += this.vy;
+                    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = "rgba(76, 201, 240, 0.5)";
+                    ctx.fill();
+                }
             }
-          }
-          function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (const p of particles) { p.update(); p.draw(); }
-            connect();
-            requestAnimationFrame(animate);
-          }
-          init(); animate();
-          window.addEventListener("resize", () => {
-            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-            init();
-          });
+            function init() {
+                particles = [];
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push(new Particle());
+                }
+            }
+            function connect() {
+                for (let a = 0; a < particles.length; a++) {
+                    for (let b = a; b < particles.length; b++) {
+                        const dx = particles[a].x - particles[b].x;
+                        const dy = particles[a].y - particles[b].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < 120) {
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(76, 201, 240, ${1 - distance / 120})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.moveTo(particles[a].x, particles[a].y);
+                            ctx.lineTo(particles[b].x, particles[b].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (const p of particles) { p.update(); p.draw(); }
+                connect();
+                requestAnimationFrame(animate);
+            }
+            init(); animate();
+            window.addEventListener("resize", () => {
+                canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+                init();
+            });
         }
-
+        // --- Persist all form filling details (new + existing) ---
+        const persistFields = [
+            "age", "years_of_experience", "gender", "education_level", "job_title", "country",
+            "industry", "company-size", "employment-type", "remote", "skills", "certifications", "relocate"
+        ];
+        function loadFormPersistence() {
+            persistFields.forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                const val = sessionStorage.getItem("sai_form_" + id);
+                if (val !== null) {
+                    if (el.tagName === "SELECT") {
+                        Array.from(el.options).forEach(option => {
+                            option.selected = (option.value === val);
+                        });
+                    } else {
+                        el.value = val;
+                    }
+                }
+            });
+        }
+        function setupFormPersistence() {
+            persistFields.forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.addEventListener("change", function() {
+                    sessionStorage.setItem("sai_form_" + id, el.value);
+                });
+            });
+        }
+        function saveAll() {
+            persistFields.forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                sessionStorage.setItem("sai_form_" + id, el.value);
+            });
+        }
         document.addEventListener('DOMContentLoaded', function() {
-            // --- User Info Modal Logic ---
+            // User Info Modal Logic ...
             const modal = document.getElementById('user-info-modal');
             const saveBtn = document.getElementById('save-user-info');
             const nameInput = document.getElementById('user-name');
             const locationInput = document.getElementById('user-location');
-
             if (!sessionStorage.getItem('userName')) {
                 modal.classList.add('visible');
                 nameInput.focus();
             }
-            
             function closeModal() {
                 const userName = nameInput.value.trim();
                 const userLocation = locationInput.value.trim();
@@ -315,40 +393,43 @@
                     alert('Please provide both your name and location to continue.');
                 }
             }
-
             saveBtn.addEventListener('click', closeModal);
-            // Allow submitting with Enter key
             locationInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     closeModal();
                 }
             });
-
             // --- Download Button Logic ---
             const downloadBtn = document.getElementById('download-pdf-btn');
             if (downloadBtn) {
                 downloadBtn.addEventListener('click', function(event) {
                     event.preventDefault();
-                    
                     const form = document.getElementById('prediction-main-form');
                     const params = new URLSearchParams();
-                    
-                    // Add prediction and form data to the URL
                     params.append('prediction', document.querySelector('.result-value').textContent.trim());
                     params.append('age', form.elements['Age'].value);
                     params.append('gender', form.elements['Gender'].value);
                     params.append('education', form.elements['Education Level'].value);
                     params.append('job_title', form.elements['Job Title'].value);
                     params.append('experience', form.elements['Years of Experience'].value);
-
-                    // Add the saved user name and location from the session
+                    params.append('country', form.elements['Country']?.value || "");
+                    params.append('industry', form.elements['Industry']?.value || "");
+                    params.append('company_size', form.elements['Company Size']?.value || "");
+                    params.append('employment_type', form.elements['Employment Type']?.value || "");
+                    params.append('remote', form.elements['Remote']?.value || "");
+                    params.append('skills', form.elements['Skills']?.value || "");
+                    params.append('certifications', form.elements['Certifications']?.value || "");
+                    params.append('relocate', form.elements['Willing to Relocate']?.value || "");
                     params.append('userName', sessionStorage.getItem('userName') || 'N/A');
                     params.append('userLocation', sessionStorage.getItem('userLocation') || 'N/A');
-                    
-                    // Trigger the server-side PDF generation by navigating to the route
                     window.location.href = `{{ url_for('download_report') }}?${params.toString()}`;
                 });
             }
+            // -- Persist all form data --
+            loadFormPersistence();
+            setupFormPersistence();
+            const form = document.getElementById('prediction-main-form');
+            form.addEventListener('submit', saveAll);
         });
     </script>
 </body>
